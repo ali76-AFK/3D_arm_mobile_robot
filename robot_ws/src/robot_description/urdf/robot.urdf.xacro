@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="mobile_base.xacro" />
+  <xacro:include filename="robot_arm.xacro" />
+  <xacro:include filename="gripper.xacro" />
+  <xacro:include filename="camera.xacro" />
+
+  <!-- Base Link definition, usually defined in mobile_base.xacro, but placing a root here for structure -->
+  <link name="world"/>
+  <joint name="world_joint" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+</robot>

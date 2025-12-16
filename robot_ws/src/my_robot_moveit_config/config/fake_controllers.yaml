@@ -1,0 +1,23 @@
+
+# For simulating the robot without real hardware, using fake controllers
+# (useful for testing MoveIt configuration and planning)
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    fake_arm_controller:
+      type: fake_controller_manager/FakeControllerManager
+      ros__parameters:
+        joints:
+          arm:
+            - joint1
+            - joint2
+            - joint3
+          gripper:
+            - left_finger_joint
+            - right_finger_joint
+        state_publish_rate: 50.0 # Hz
+        action_monitor_rate: 20.0 # Hz
+        group_names:
+          - arm
+          - gripper

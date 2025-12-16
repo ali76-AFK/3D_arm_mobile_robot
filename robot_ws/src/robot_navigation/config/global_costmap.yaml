@@ -1,0 +1,27 @@
+
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      update_frequency: 1.0
+      publish_frequency: 1.0
+      global_frame: map
+      robot_base_frame: base_link
+      use_sim_time: true
+      robot_radius: 0.15 # Adjusted for robot base size
+      plugins:
+        - {name: static_layer,           type: "nav2_costmap_2d::StaticLayer"}
+        - {name: obstacle_layer,         type: "nav2_costmap_2d::ObstacleLayer"}
+        - {name: inflation_layer,        type: "nav2_costmap_2d::InflationLayer"}
+      static_layer:
+        map_subscribe_transient_local: true
+      obstacle_layer:
+        enabled: true
+        laser_scan_prohibition_zone_enabled: false
+        obstacle_range: 2.5
+        raytrace_range: 3.0
+        max_obstacle_height: 2.0
+        topics: ["scan"]
+      inflation_layer:
+        enabled: true
+        cost_scaling_factor: 3.0 # Increase for more aggressive inflation
+        inflation_radius: 0.5

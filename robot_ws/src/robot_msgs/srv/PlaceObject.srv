@@ -1,0 +1,6 @@
+
+string container_label # e.g., "circle_container"
+geometry_msgs/PoseStamped target_pose # Optional: precise placement pose
+---
+bool success
+string message

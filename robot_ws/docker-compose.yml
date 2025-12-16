@@ -1,0 +1,41 @@
+
+version: '3.8'
+services:
+  robot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        COLCON_WS_SRC: /ros_ws/src
+        COLCON_WS_INSTALL: /ros_ws/install
+    image: ros2_robot_pick_place:humble
+    container_name: ros2_robot_pick_place_container
+    privileged: true # Required for Gazebo physics and hardware access in some cases
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=${XAUTHORITY}
+      - ROS_DOMAIN_ID=0 # Or a specific ID if needed
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp # Recommended for performance
+      - FASTRTPS_DEFAULT_PROFILES_FILE=/ros_ws/install/fastrtps_profiles.xml # If you have a custom profile
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw # For GUI applications (RViz, Gazebo Client)
+      - /dev:/dev # Access to /dev for serial/USB devices (e.g., real robot)
+      - ./src:/ros_ws/src # Mount source code for easier development
+      - ./config:/ros_ws/config # Mount custom configuration files
+    command: bash -c "source /ros_ws/install/setup.bash && ros2 launch robot_description display.launch.py use_sim_time:=true"
+    # entrypoint: /usr/local/bin/docker_entrypoint.sh
+    # command: bash
+    network_mode: "host" # For direct network access, easier for communication with host
+    # ports:
+    #   - "8080:8080" # Example if you have web interfaces
+
+  # Optional: Another service for a separate monitoring or control application
+  # monitoring:
+  #   image: my_monitoring_app:latest
+  #   depends_on:
+  #     - robot
+  #   environment:
+  #     - ROS_DOMAIN_ID=0
+  #   command: bash -c "ros2 run rclpy_examples_py talker" # Example command
+  #   network_mode: "host"

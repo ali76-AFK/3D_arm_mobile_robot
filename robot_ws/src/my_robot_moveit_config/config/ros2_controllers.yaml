@@ -1,0 +1,21 @@
+
+# Configuration for the ROS2 controllers used by the robot
+controller_manager:
+  ros__parameters:
+    update_rate: 100 # Hz
+
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+      joints:
+        - joint1
+        - joint2
+        - joint3
+    gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController # Or a specialized gripper controller
+      joints:
+        - left_finger_joint
+        - right_finger_joint
+
+    # More controllers can be added here as needed, e.g., for diff_drive
+    # For differential drive, typically the `diff_drive_controller` is used.
+    # However, MoveIt focuses on manipulators. The base is often handled separately by Nav2.

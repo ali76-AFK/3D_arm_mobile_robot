@@ -1,0 +1,20 @@
+
+# Example camera calibration file for sensor_msgs/CameraInfo
+# This is a placeholder and should be replaced with actual calibration data.
+
+header:
+  seq: 0
+  stamp: {sec: 0, nanosec: 0}
+  frame_id: camera_link
+width: 640
+height: 480
+distortion_model: plumb_bob
+D: [0.0, 0.0, 0.0, 0.0, 0.0] # Distortion coefficients (k1, k2, t1, t2, k3)
+K: [500.0, 0.0, 320.0, 0.0, 500.0, 240.0, 0.0, 0.0, 1.0] # Intrinsic camera matrix (fx, 0, cx, 0, fy, cy, 0, 0, 1)
+R: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0] # Rectification matrix (identity for non-stereo)
+P: [500.0, 0.0, 320.0, 0.0, 0.0, 500.0, 240.0, 0.0, 0.0, 0.0, 1.0, 0.0] # Projection matrix (fx', 0, cx', Tx, 0, fy', cy', Ty, 0, 0, 1, 0)
+
+# The P[0,0] and P[1,1] correspond to fx and fy respectively.
+# P[0,2] and P[1,2] correspond to cx and cy respectively.
+# The coordinate_transformer_node uses P[0] for fx, P[5] for fy, P[2] for cx, P[6] for cy
+# which corresponds to the ROS CameraInfo definition where P is a 3x4 row-major matrix.

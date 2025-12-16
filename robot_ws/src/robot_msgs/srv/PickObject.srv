@@ -1,0 +1,5 @@
+
+robot_msgs/DetectedShape target_object
+---
+bool success
+string message
